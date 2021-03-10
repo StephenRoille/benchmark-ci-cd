@@ -10,9 +10,7 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Build Image
-        run: docker build -t stephenroille/benchmark .
-        shell: bash
-      - name: Run Script from Container
-        run: docker run --rm stephenroille/benchmark
-        shell: bash
+      - name: Setup Python
+        uses: actions/setup-python@v2
+      - name: Run Script
+        run: python run.py
