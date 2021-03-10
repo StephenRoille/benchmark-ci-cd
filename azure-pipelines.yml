@@ -1,24 +1,13 @@
-trigger:
-- master
+jobs:
+- job:
+  displayName: Run Python Script on Ubuntu
+  pool:
+    vmImage: ubuntu-latest
+  strategy:
+    matrix:
+      Python36:
+        python.version: '3.6'
 
-resources:
-- repo: self
-
-stages:
-- stage: Run
-  displayName: Run Python Script from Dockerfile
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: Docker@2
-      displayName: Build Image
-      inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          stephenroille/benchmark
-    - bash: docker run stephenroille/benchmark
-      displayName: Run Pyton Script
+  steps:
+  - bash: python run.py
+    displayName: Run Script
