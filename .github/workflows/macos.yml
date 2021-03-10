@@ -1,0 +1,16 @@
+name: Run Python script on MacOS
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  run-python-script:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Build Image
+        run: docker build -t stephenroille/benchmark .
+      - name: Run Script from Container
+        run: docker run --rm stephenroille/benchmark
