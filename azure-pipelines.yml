@@ -1,0 +1,24 @@
+trigger:
+- master
+
+resources:
+- repo: self
+
+stages:
+- stage: Run Python Script from Dockerfile
+  displayName: Run Python Script from Dockerfile
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Build Image
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: |
+          stephenroille/benchmark
+    - bash: docker run stephenroille/benchmark
+      displayName: Run Pyton Script
