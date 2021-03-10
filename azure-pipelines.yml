@@ -5,7 +5,7 @@ resources:
 - repo: self
 
 stages:
-- stage: Run Python Script from Dockerfile
+- stage: Run
   displayName: Run Python Script from Dockerfile
   jobs:
   - job: Build
